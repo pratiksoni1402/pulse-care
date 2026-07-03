@@ -1,7 +1,8 @@
-import { inter, geistSans, geistMono } from './fonts'
+import { inter, plusJakartaSans } from './fonts'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import NextTopLoader from 'nextjs-toploader'
+import { ThemeProvider } from '@/components/theme-provider'
 
 import type { Metadata, Viewport } from 'next'
 
@@ -145,27 +146,29 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(
-        'h-full',
-        'antialiased',
-        geistSans.variable,
-        geistMono.variable,
-        inter.variable
-      )}
+      suppressHydrationWarning
+      className={cn('h-full', 'antialiased', inter.variable, plusJakartaSans.variable)}
     >
       <body className="min-h-full flex flex-col">
-        {children}
-        <NextTopLoader
-          color="#193e41"
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={4}
-          crawl={true}
-          showSpinner={false}
-          easing="ease"
-          speed={200}
-          shadow="0 0 10px #ffffff,0 0 5px #ffffff"
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <NextTopLoader
+            color="#193e41"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={4}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #2dd4bf,0 0 5px #2dd4bf"
+          />
+        </ThemeProvider>
       </body>
     </html>
   )
