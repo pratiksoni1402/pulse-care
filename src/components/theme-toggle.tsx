@@ -1,20 +1,22 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Switch } from '@/components/ui/switch'
+import { Skeleton } from '@/components/ui/skeleton'
 
-/**
- * ThemeToggle — Shadcn Switch wired to next-themes.
- *
- * Not rendered anywhere in the UI yet.
- * Import and place this wherever a theme toggle control is needed.
- *
- * Usage:
- *   import { ThemeToggle } from '@/components/theme-toggle'
- *   <ThemeToggle />
- */
 export function ThemeToggle() {
+  const [mounted, setMounted] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <Skeleton className="h-5 w-9 rounded-2xl" />
+  }
+
   const isDark = resolvedTheme === 'dark'
 
   return (
