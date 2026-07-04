@@ -11,7 +11,7 @@ export function AuthDivider({ label = "or continue with email" }: AuthDividerPro
         <span className="w-full border-t border-border" />
       </div>
       <div className="relative flex justify-center text-xs uppercase">
-        <span className="bg-card px-3 caption font-medium">{label}</span>
+        <span className="bg-background px-3 caption font-medium">{label}</span>
       </div>
     </div>
   )

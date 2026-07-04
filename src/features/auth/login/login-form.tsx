@@ -1,12 +1,11 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { toast } from "sonner"
-import Link from "next/link"
+import * as React from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,7 +21,11 @@ import {
 import { loginSchema, type LoginInput } from "./login-schema"
 import { authClient } from "@/lib/auth-client"
 
-export function LoginForm() {
+interface LoginFormProps {
+  onForgotPasswordClick?: () => void
+}
+
+export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -97,13 +100,15 @@ export function LoginForm() {
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
-                <Link
-                  href="/forgot-password"
-                  className="text-xs text-primary underline-offset-4 hover:underline font-medium"
-                  tabIndex={0}
-                >
-                  Forgot password?
-                </Link>
+                {onForgotPasswordClick && (
+                  <button
+                    type="button"
+                    onClick={onForgotPasswordClick}
+                    className="text-xs text-primary underline-offset-4 hover:underline font-medium transition-colors focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+                  >
+                    Forgot password?
+                  </button>
+                )}
               </div>
               <FormControl>
                 <div className="relative">
