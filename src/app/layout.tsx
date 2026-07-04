@@ -3,6 +3,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import NextTopLoader from 'nextjs-toploader'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 import type { Metadata, Viewport } from 'next'
 
@@ -156,18 +157,19 @@ export default function RootLayout({
           enableSystem
         >
           {children}
-          <NextTopLoader
-            color="#193e41"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={4}
-            crawl={true}
-            showSpinner={false}
-            easing="ease"
-            speed={200}
-            shadow="0 0 10px #2dd4bf,0 0 5px #2dd4bf"
-          />
-        </ThemeProvider>
+            <NextTopLoader
+              color="#193e41"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={4}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+              shadow="0 0 10px #2dd4bf,0 0 5px #2dd4bf"
+            />
+            <Toaster />
+          </ThemeProvider>
       </body>
     </html>
   )

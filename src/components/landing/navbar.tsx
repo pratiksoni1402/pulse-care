@@ -83,10 +83,10 @@ export function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <Button variant="outline" size="sm" asChild>
-            <Link href="/login">Log in</Link>
+            <Link href="/auth">Log in</Link>
           </Button>
           <Button size="sm" className="rounded-lg" asChild>
-            <Link href="/signup">Get Started</Link>
+            <Link href="/auth">Get Started</Link>
           </Button>
         </div>
 
