@@ -157,13 +157,13 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
 
         <Button
           type="submit"
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-2 font-medium"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-2 font-medium cursor-pointer"
           disabled={isLoading}
         >
           {isLoading ? (
             <>
               <Spinner className="size-4 mr-2 animate-spin" />
-              Signing in...
+              Sign In
             </>
           ) : (
             'Sign In'
