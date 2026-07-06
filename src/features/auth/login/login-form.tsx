@@ -7,9 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Spinner } from "@/components/ui/spinner"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Spinner } from '@/components/ui/spinner'
 import {
   Form,
   FormControl,
@@ -17,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { loginSchema, type LoginInput } from "./login-schema"
-import { authClient } from "@/lib/auth-client"
+} from '@/components/ui/form'
+import { loginSchema, type LoginInput } from './login-schema'
+import { authClient } from '@/lib/auth-client'
 
 interface LoginFormProps {
   onForgotPasswordClick?: () => void
@@ -32,8 +32,8 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
@@ -44,22 +44,32 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
   const onSubmit = async (values: LoginInput) => {
     setIsLoading(true)
     try {
-      const { data, error } = await authClient.signIn.email({
-        email: values.email,
-        password: values.password,
-      })
-
-      if (error) {
-        toast.error(error.message || "Invalid email or password")
-        return
-      }
-
-      toast.success("Successfully signed in!")
-      if (typeof window !== "undefined") {
-        window.location.href = "/"
-      }
+      const { data, error } = await authClient.signIn.email(
+        {
+          /**
+           * The user email
+           */
+          email: values.email,
+          /**
+           * The user password
+           */
+          password: values.password,
+          /**
+           * A URL to redirect to after the user verifies their email (optional)
+           */
+          callbackURL: '/dashboard',
+          /**
+           * remember the user session after the browser is closed.
+           * @default true
+           */
+          rememberMe: false,
+        },
+        {
+          //callbacks
+        }
+      )
     } catch (error) {
-      toast.error("An unexpected error occurred during sign in")
+      toast.error('An unexpected error occurred during sign in')
     } finally {
       setIsLoading(false)
     }
@@ -113,7 +123,7 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
               <FormControl>
                 <div className="relative">
                   <Input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     autoComplete="current-password"
                     required
@@ -128,7 +138,9 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
                     className="absolute right-1 top-1/2 -translate-y-1/2 size-7 text-muted-foreground hover:text-foreground transition-all duration-150"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoading}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showPassword ? (
                       <EyeOffIcon className="size-4 animate-in fade-in zoom-in-75 duration-150" />
@@ -154,7 +166,7 @@ export function LoginForm({ onForgotPasswordClick }: LoginFormProps) {
               Signing in...
             </>
           ) : (
-            "Sign In"
+            'Sign In'
           )}
         </Button>
       </form>

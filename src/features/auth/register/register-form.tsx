@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { toast } from "sonner"
-import Link from "next/link"
+import * as React from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { toast } from 'sonner'
+import Link from 'next/link'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Spinner } from "@/components/ui/spinner"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Spinner } from '@/components/ui/spinner'
 import {
   Form,
   FormControl,
@@ -20,9 +20,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { registerSchema, type RegisterInput } from "./register-schema"
-import { authClient } from "@/lib/auth-client"
+} from '@/components/ui/form'
+import { registerSchema, type RegisterInput } from './register-schema'
+import { authClient } from '@/lib/auth-client'
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -32,10 +32,10 @@ export function RegisterForm() {
   const form = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       terms: false,
     },
   })
@@ -47,23 +47,27 @@ export function RegisterForm() {
   const onSubmit = async (values: RegisterInput) => {
     setIsLoading(true)
     try {
-      const { data, error } = await authClient.signUp.email({
-        email: values.email,
-        password: values.password,
-        name: values.name,
-      })
-
-      if (error) {
-        toast.error(error.message || "Failed to create account")
-        return
-      }
-
-      toast.success("Account created successfully!")
-      if (typeof window !== "undefined") {
-        window.location.href = "/"
-      }
+      const { data, error } = await authClient.signUp.email(
+        {
+          email: values.email,
+          password: values.password,
+          name: values.name,
+        },
+        {
+          onRequest: (ctx) => {
+            //show loading
+          },
+          onSuccess: (ctx) => {
+            //redirect to the dashboard or sign in page
+          },
+          onError: (ctx) => {
+            // display the error message
+            alert(ctx.error.message)
+          },
+        }
+      )
     } catch (error) {
-      toast.error("An unexpected error occurred during registration")
+      toast.error('An unexpected error occurred during registration')
     } finally {
       setIsLoading(false)
     }
@@ -127,7 +131,7 @@ export function RegisterForm() {
               <FormControl>
                 <div className="relative">
                   <Input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     autoComplete="new-password"
                     required
@@ -142,7 +146,9 @@ export function RegisterForm() {
                     className="absolute right-1 top-1/2 -translate-y-1/2 size-7 text-muted-foreground hover:text-foreground transition-all duration-150"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoading}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showPassword ? (
                       <EyeOffIcon className="size-4 animate-in fade-in zoom-in-75 duration-150" />
@@ -169,7 +175,7 @@ export function RegisterForm() {
               <FormControl>
                 <div className="relative">
                   <Input
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showConfirmPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     autoComplete="new-password"
                     required
@@ -186,8 +192,8 @@ export function RegisterForm() {
                     disabled={isLoading}
                     aria-label={
                       showConfirmPassword
-                        ? "Hide password confirmation"
-                        : "Show password confirmation"
+                        ? 'Hide password confirmation'
+                        : 'Show password confirmation'
                     }
                   >
                     {showConfirmPassword ? (
@@ -218,15 +224,15 @@ export function RegisterForm() {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel className="text-xs font-normal text-muted-foreground leading-normal cursor-pointer">
-                  I agree to the{" "}
+                  I agree to the{' '}
                   <Link
                     href="/terms"
                     className="font-medium text-foreground hover:underline underline-offset-4"
                     target="_blank"
                   >
                     Terms of Service
-                  </Link>{" "}
-                  and{" "}
+                  </Link>{' '}
+                  and{' '}
                   <Link
                     href="/privacy-policy"
                     className="font-medium text-foreground hover:underline underline-offset-4"
@@ -253,7 +259,7 @@ export function RegisterForm() {
               Creating account...
             </>
           ) : (
-            "Create Account"
+            'Create Account'
           )}
         </Button>
       </form>
