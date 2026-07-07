@@ -1,4 +1,4 @@
-import PatientProfile from '@/features/patient'
+import PatientProfile from '@/features/patient/page'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
