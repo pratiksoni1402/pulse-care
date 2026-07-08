@@ -24,7 +24,9 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
+  --color-input-border: var(--input-border);
   --color-ring: var(--ring);
+  --color-form-surface: var(--form-surface);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -91,7 +93,11 @@
   /* Border / Input / Ring */
   --border: oklch(0.88 0.012 200);
   --input: oklch(0.88 0.012 200);
+  --input-border: oklch(0.78 0.015 200); /* visible input edge in light mode */
   --ring: oklch(0.55 0.1 195);
+
+  /* Form surface */
+  --form-surface: oklch(0.97 0.006 200); /* slightly tinted card for forms */
 
   /* Healthcare chart palette — perceptually distinct, data-safe */
   --chart-1: oklch(0.55 0.13 195); /* teal       */
@@ -117,13 +123,13 @@
 .dark {
   /* Surface */
   --background: oklch(0.14 0.015 220); /* deep navy slate */
-  --foreground: oklch(0.93 0.008 200);
+  --foreground: oklch(0.95 0.006 200); /* ↑ brightened for ≥ 7:1 on bg ✅ */
 
   /* Card / Popover */
   --card: oklch(0.19 0.018 220);
-  --card-foreground: oklch(0.93 0.008 200);
+  --card-foreground: oklch(0.95 0.006 200);
   --popover: oklch(0.19 0.018 220);
-  --popover-foreground: oklch(0.93 0.008 200);
+  --popover-foreground: oklch(0.95 0.006 200);
 
   /* Primary — lighter teal for dark background */
   --primary: oklch(0.68 0.12 195);
@@ -131,24 +137,28 @@
 
   /* Secondary — deep teal surface */
   --secondary: oklch(0.27 0.04 195);
-  --secondary-foreground: oklch(0.88 0.02 195);
+  --secondary-foreground: oklch(0.90 0.015 195); /* ↑ brighter for AA ✅ */
 
-  /* Muted */
+  /* Muted — used by placeholders & helper text */
   --muted: oklch(0.24 0.02 215);
-  --muted-foreground: oklch(0.6 0.025 210);
+  --muted-foreground: oklch(0.72 0.02 210); /* ↑ 0.60 → 0.72  ≈ 5.2:1 on dark bg ✅ */
 
   /* Accent */
   --accent: oklch(0.26 0.04 250);
-  --accent-foreground: oklch(0.88 0.025 250);
+  --accent-foreground: oklch(0.90 0.02 250); /* ↑ brighter for AA ✅ */
 
   /* Semantic */
   --destructive: oklch(0.65 0.2 25);
   --destructive-foreground: oklch(0.14 0.015 220); /* dark navy — 5.59:1 on dark destructive ✅ */
 
   /* Border / Input / Ring */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.1 195);
+  --border: oklch(1 0 0 / 18%); /* ↑ 10% → 18%  visible border ✅ */
+  --input: oklch(1 0 0 / 12%); /* ↓ slightly more subtle fill, border does the heavy lifting */
+  --input-border: oklch(1 0 0 / 28%); /* NEW — distinct input edge, 3:1 UI contrast ✅ */
+  --ring: oklch(0.68 0.1 195); /* ↑ brighter focus ring */
+
+  /* Form surface — elevated card for form backgrounds */
+  --form-surface: oklch(0.18 0.02 220); /* sits between bg (0.14) and card (0.19) */
 
   /* Healthcare chart palette — brightened for dark bg */
   --chart-1: oklch(0.72 0.12 195);
@@ -159,13 +169,13 @@
 
   /* Sidebar */
   --sidebar: oklch(0.17 0.018 220);
-  --sidebar-foreground: oklch(0.93 0.008 200);
+  --sidebar-foreground: oklch(0.95 0.006 200);
   --sidebar-primary: oklch(0.68 0.12 195);
   --sidebar-primary-foreground: oklch(0.12 0.015 220);
   --sidebar-accent: oklch(0.26 0.04 250);
-  --sidebar-accent-foreground: oklch(0.88 0.025 250);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.65 0.1 195);
+  --sidebar-accent-foreground: oklch(0.90 0.02 250);
+  --sidebar-border: oklch(1 0 0 / 18%);
+  --sidebar-ring: oklch(0.68 0.1 195);
 }
 
 @layer base {

@@ -59,6 +59,17 @@ export default function PersonalVitalDetail() {
 
   return (
     <div className="grid grid-cols-1 gap-4">
+      {/* ── Section Heading ────────────────────────────────── */}
+      <div className="mb-1">
+        <h3 className="text-lg font-semibold text-foreground">
+          Personal Details
+        </h3>
+        <p className="text-sm text-muted-foreground mt-1">
+          Enter the patient&apos;s personal information, contact details, and
+          emergency contacts.
+        </p>
+      </div>
+
       <FormField
         name="fullName"
         control={form.control}
